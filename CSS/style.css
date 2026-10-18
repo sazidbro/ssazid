@@ -1,0 +1,550 @@
+/* ==========================================================================
+   Minimal typewriter portfolio: black and white only.
+   Colours live in the variables below, so they are easy to find and change.
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --border: #e5e5e5;
+  --hover: #f5f5f5;
+
+  --font: 'IBM Plex Mono', 'Courier New', Courier, monospace; /* IBM Plex Mono loads from Google Fonts (see the <link> in each page); Courier New is the fallback */
+  --measure: 52rem;
+}
+
+:root[data-theme='dark'] {
+  --bg: #111111;
+  --text: #f5f5f5;
+  --muted: #a3a3a3; /* lighter than #666 so it stays readable on dark */
+  --border: #333333;
+  --hover: #1c1c1c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.75rem 0;
+}
+
+code {
+  font-family: var(--font);
+  background: var(--hover);
+  padding: 0.1em 0.35em;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  background: var(--hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  letter-spacing: inherit;
+}
+
+button:hover {
+  background: var(--hover);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Small uppercase section labels */
+.label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+}
+
+/* Visually hidden but still read by screen readers and search engines */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--bg);
+  border: 1px solid var(--text);
+  padding: 0.5rem 0.9rem;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- Header / navigation ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.brand {
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav a:hover {
+  background: transparent;
+  border-bottom-color: var(--muted);
+}
+
+/* The current page gets a solid underline */
+.nav a[aria-current='page'] {
+  border-bottom-color: var(--text);
+}
+
+.theme-button {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+}
+
+.menu-button {
+  display: none;
+}
+
+/* ---------- Main ---------- */
+
+.main {
+  flex: 1;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* ---------- Home ---------- */
+
+.home {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.portrait {
+  margin: 0;
+}
+
+.portrait img {
+  width: 100%;
+  border: 1px solid var(--border);
+  filter: grayscale(100%); /* keeps any photo black and white */
+}
+
+.portrait figcaption {
+  font-size: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+/* Typewriter text: a hidden full-size copy reserves the space,
+   so the page does not jump while the live copy is typed on top. */
+.type-slot {
+  position: relative;
+}
+
+.type-ghost {
+  display: block;
+  visibility: hidden;
+  white-space: pre-wrap;
+}
+
+.type-live {
+  position: absolute;
+  inset: 0;
+  white-space: pre-wrap;
+}
+
+.tagline {
+  margin-top: 0.75rem;
+  color: var(--muted);
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.1em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.facts {
+  margin: 1.5rem 0;
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 0.25rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.facts dt {
+  margin: 0;
+  padding-top: 0.15rem;
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.intro-block {
+  margin-top: 1.5rem;
+}
+
+.plain-list li::before {
+  content: '- ';
+  color: var(--muted);
+}
+
+.home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2rem;
+}
+
+/* ---------- Education / Work entries ---------- */
+
+.entry-list > .entry {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.entry-list > .entry:first-child {
+  padding-top: 0;
+}
+
+.entry-title {
+  font-size: 1.05rem;
+}
+
+.entry-line,
+.entry-dates,
+.entry-desc,
+.entry-tech {
+  margin: 0.15rem 0 0;
+}
+
+.entry-desc {
+  margin-top: 0.75rem;
+}
+
+.education-entry {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  object-fit: contain;
+  border: 1px solid var(--border);
+}
+
+.entry-image {
+  margin-top: 0.75rem;
+  max-width: 28rem;
+  border: 1px solid var(--border);
+  filter: grayscale(100%);
+}
+
+.entry-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0.9rem 0 0;
+}
+
+.work-group {
+  margin-top: 2.5rem;
+}
+
+.work-group:first-of-type {
+  margin-top: 0;
+}
+
+/* ---------- Skills ---------- */
+
+.skill-group {
+  margin-bottom: 2.5rem;
+}
+
+.skill-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+}
+
+/* The row of dots between a skill and its level, like a typed contents page */
+.skill-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+  transform: translateY(-0.3em);
+  min-width: 1rem;
+}
+
+/* ---------- Contact ---------- */
+
+.social-list {
+  max-width: 24rem;
+}
+
+.social-list li {
+  border-bottom: 1px solid var(--border);
+}
+
+.social-list a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0.5rem;
+  text-decoration: none;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0 2rem;
+  font-size: 0.8rem;
+}
+
+.site-footer p {
+  margin: 0 0 0.4rem;
+}
+
+/* ---------- Tablets and phones ---------- */
+
+@media (max-width: 760px) {
+  .home {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .portrait {
+    max-width: 12rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 0.92rem;
+  }
+
+  h1 {
+    font-size: 1.35rem;
+  }
+
+  .container {
+    padding: 0 1.1rem;
+  }
+
+  .main {
+    padding-top: 2rem;
+  }
+
+  .menu-button {
+    display: inline-block;
+    min-height: 2.75rem;
+    min-width: 5rem;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+  }
+
+  .nav.open {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav a,
+  .nav .theme-button {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 0;
+    text-align: left;
+  }
+
+  .nav .theme-button {
+    border: 0;
+  }
+
+  .nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .facts > div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .education-entry {
+    gap: 0.9rem;
+  }
+
+  .logo {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
