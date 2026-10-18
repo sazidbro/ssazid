@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills — Sazid Moontasir</title>
+    <meta name="description" content="Technical and other skills of Sazid Moontasir." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Skills — Sazid Moontasir" />
+    <meta property="og:description" content="Technical and other skills of Sazid Moontasir." />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      // Apply the saved theme before the page paints (no white flash in dark mode).
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body data-page="skills">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="site-header"></div>
+    <main id="main" class="container main" tabindex="-1">
+      <noscript><p>Please enable JavaScript to view this page.</p></noscript>
+    </main>
+    <div id="site-footer"></div>
+
+    <!-- Your information lives in js/data.js. The page layout is built by js/main.js. -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
